@@ -32,7 +32,8 @@ while(1) {
 	if ($res) {
 		# Regex needs to match strings like:
 		#  Can\'t locate Want.pm in foo (you may need to install the Want module) (@INC contains: 
-		if ( $res =~ /Can't locate ([^.]+?)\.pm in \@INC/ ) {
+		if ( $res =~ /Can't locate ([^.]+?)\.pm in \@INC/s 
+			or $res =~ /Base class package "([^"]+)" is empty/s ) {
 			my $mod = $1;
 			$mod =~ s/\//::/g;
 			print "Dependency found: $mod\n";
